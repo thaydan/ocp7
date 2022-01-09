@@ -35,7 +35,7 @@ class Product
     private $weight;
 
     #[ORM\Column(type: 'float')]
-    private $length;
+    private $depth;
 
     #[ORM\Column(type: 'float')]
     private $width;
@@ -150,14 +150,14 @@ class Product
         return $this;
     }
 
-    public function getLength(): ?float
+    public function getDepth(): ?float
     {
-        return $this->length;
+        return $this->depth;
     }
 
-    public function setLength(float $length): self
+    public function setDepth(float $depth): self
     {
-        $this->length = $length;
+        $this->depth = $depth;
 
         return $this;
     }
