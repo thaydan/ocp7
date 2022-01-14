@@ -11,14 +11,36 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/product')]
+#[Route('/api/product')]
 class ProductController extends AbstractController
 {
-    #[Route('/', name: 'product_index', methods: ['GET'])]
+    #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
-        return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+        return $this->json($productRepository->findAll(), Response::HTTP_OK);
+    }
+
+    #[Route('/{id}', name: 'product_show', methods: ['GET'])]
+    public function show(Product $product): Response
+    {
+        return $this->json($product, Response::HTTP_OK);
+    }
+
+    #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('product/edit.html.twig', [
+            'product' => $product,
+            'form' => $form,
         ]);
     }
 
@@ -37,32 +59,6 @@ class ProductController extends AbstractController
         }
 
         return $this->renderForm('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'product_show', methods: ['GET'])]
-    public function show(Product $product): Response
-    {
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('product/edit.html.twig', [
             'product' => $product,
             'form' => $form,
         ]);
