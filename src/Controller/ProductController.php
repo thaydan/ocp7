@@ -17,13 +17,26 @@ class ProductController extends AbstractController
     #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
-        return $this->json($productRepository->findAll(), Response::HTTP_OK);
+        return $this->json($productRepository->findAll(),
+            Response::HTTP_OK,
+            [],
+            [
+                'groups' => [
+                    'read:all',
+                    'product:list'
+                ]
+            ]
+        );
     }
 
     #[Route('/{id}', name: 'product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
-        return $this->json($product, Response::HTTP_OK);
+        return $this->json($product,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'product:show']
+        );
     }
 
     #[Route('/{id}/edit', name: 'product_edit', methods: ['GET', 'POST'])]

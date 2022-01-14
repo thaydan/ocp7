@@ -6,34 +6,42 @@ use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+    #[Groups(["client:list", "client:show"])]
     #[ORM\Column(type: 'integer')]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["client:list", "client:show"])]
     private $email;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["client:show"])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["client:show"])]
     private $address;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["client:show"])]
     private $zipCode;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["client:show"])]
     private $country;
 
     #[ORM\Column(type: 'json')]
+    #[Groups(["client:show"])]
     private $roles = [];
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: ClientCustomer::class, orphanRemoval: true)]

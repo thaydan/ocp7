@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -11,54 +12,71 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(["product:list", "product:show"])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["product:show"])]
     private $brand;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["product:list", "product:show"])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(["product:show"])]
     private $OS;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["product:show"])]
     private $storage;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["product:show"])]
     private $RAM;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(["product:show"])]
     private $screenSize;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["product:show"])]
     private $weight;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(["product:show"])]
     private $depth;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(["product:show"])]
     private $width;
 
     #[ORM\Column(type: 'float')]
+    #[Groups(["product:show"])]
     private $height;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(["product:show"])]
     private $battery;
 
     #[ORM\Column(type: 'string', length: 10)]
+    #[Groups(["product:show"])]
     private $connectivity;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(["product:show"])]
     private $microSD;
 
     #[ORM\Column(type: 'string', length: 10)]
+    #[Groups(["product:show"])]
     private $color;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(["product:show"])]
     private $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(["product:show"])]
     private $updatedAt;
 
     public function getId(): ?int
