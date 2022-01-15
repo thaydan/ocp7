@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ClientCustomer;
+use App\Entity\Pagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,12 @@ class ClientCustomerRepository extends ServiceEntityRepository
         parent::__construct($registry, ClientCustomer::class);
     }
 
-    // /**
-    //  * @return ClientCustomer[] Returns an array of ClientCustomer objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllPaginated(int $page = 0, int $nbElementsPerPage = 20)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $q = $this->createQueryBuilder('client_customer')
+            ->setFirstResult($page * $nbElementsPerPage)
+            ->setMaxResults($nbElementsPerPage);
 
-    /*
-    public function findOneBySomeField($value): ?ClientCustomer
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return new Pagination($q);
     }
-    */
 }

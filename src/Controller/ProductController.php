@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\PaginationType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use App\Service\FormHandler;
@@ -23,9 +24,19 @@ class ProductController extends AbstractController
     }
 
     #[Route('', name: 'product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, Request $request): Response
     {
-        return $this->json($productRepository->findAll(),
+        $paginationForm = $this->createForm(PaginationType::class);
+        $paginationForm->submit($request->query->all());
+
+        if (!($paginationForm->isSubmitted() && $paginationForm->isValid())) {
+            return $this->json('Bad Request', Response::HTTP_BAD_REQUEST);
+        }
+        $pagination = $paginationForm->getData();
+        //dd($pagination);
+
+        return $this->json(
+            $productRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),
             Response::HTTP_OK,
             [],
             [

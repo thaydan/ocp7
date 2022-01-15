@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\ClientCustomer;
 use App\Form\ClientCustomerType;
+use App\Form\PaginationType;
 use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,8 +24,16 @@ class ClientCustomerController extends AbstractController
     }
 
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
-    public function index(ClientCustomerRepository $clientCustomerRepository): Response
+    public function index(ClientCustomerRepository $clientCustomerRepository, Request $request): Response
     {
+        $paginationForm = $this->createForm(PaginationType::class);
+        $paginationForm->submit($request->query->all());
+
+        if (!($paginationForm->isSubmitted() && $paginationForm->isValid())) {
+            return $this->json('Bad Request', Response::HTTP_BAD_REQUEST);
+        }
+        $pagination = $paginationForm->getData();
+
         return $this->json($clientCustomerRepository->findAll(),
             Response::HTTP_OK,
             [],
