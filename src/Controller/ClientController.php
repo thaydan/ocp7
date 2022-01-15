@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
+use App\Service\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/client')]
 class ClientController extends AbstractController
 {
+    private FormHandler $formHandler;
+
+    public function __construct(FormHandler $formHandler)
+    {
+        $this->formHandler = $formHandler;
+    }
+
     #[Route('', name: 'client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
@@ -39,52 +47,43 @@ class ClientController extends AbstractController
         );
     }
 
-    #[Route('/{id}/edit', name: 'client_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'client_edit', methods: ['PUT'])]
+    public function edit(Client $client, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
+        $client = $this->formHandler->handle(ClientType::class, $client);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        $entityManager->flush();
 
-            return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('client/edit.html.twig', [
-            'client' => $client,
-            'form' => $form,
-        ]);
+        return $this->json(
+            $client,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'product:show']
+        );
     }
 
-    #[Route('/new', name: 'client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('', name: 'client_new', methods: ['POST'])]
+    public function new(EntityManagerInterface $entityManager): Response
     {
-        $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
-        $form->handleRequest($request);
+        $client = $this->formHandler->handle(ClientType::class, new Client());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($client);
-            $entityManager->flush();
+        $entityManager->persist($client);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form,
-        ]);
+        return $this->json(
+            $client,
+            Response::HTTP_CREATED,
+            [],
+            ['groups' => 'book:show']
+        );
     }
 
-    #[Route('/{id}', name: 'client_delete', methods: ['POST'])]
-    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'client_delete', methods: ['DELETE'])]
+    public function delete(Client $client, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($client);
-            $entityManager->flush();
-        }
+        $entityManager->remove($client);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('client_index', [], Response::HTTP_SEE_OTHER);
+        return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ClientCustomer;
 use App\Form\ClientCustomerType;
 use App\Repository\ClientCustomerRepository;
+use App\Service\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/customer')]
 class ClientCustomerController extends AbstractController
 {
+    private FormHandler $formHandler;
+
+    public function __construct(FormHandler $formHandler)
+    {
+        $this->formHandler = $formHandler;
+    }
+
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
     public function index(ClientCustomerRepository $clientCustomerRepository): Response
     {
@@ -39,52 +47,43 @@ class ClientCustomerController extends AbstractController
         );
     }
 
-    #[Route('/{id}/edit', name: 'client_customer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'client_customer_edit', methods: ['PUT'])]
+    public function edit(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ClientCustomerType::class, $clientCustomer);
-        $form->handleRequest($request);
+        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, $clientCustomer);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        $entityManager->flush();
 
-            return $this->redirectToRoute('client_customer_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('client_customer/edit.html.twig', [
-            'client_customer' => $clientCustomer,
-            'form' => $form,
-        ]);
+        return $this->json(
+            $clientCustomer,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'product:show']
+        );
     }
 
-    #[Route('/new', name: 'client_customer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('', name: 'client_customer_new', methods: ['POST'])]
+    public function new(EntityManagerInterface $entityManager): Response
     {
-        $clientCustomer = new ClientCustomer();
-        $form = $this->createForm(ClientCustomerType::class, $clientCustomer);
-        $form->handleRequest($request);
+        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, new ClientCustomer());
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($clientCustomer);
-            $entityManager->flush();
+        $entityManager->persist($clientCustomer);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('client_customer_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('client_customer/new.html.twig', [
-            'client_customer' => $clientCustomer,
-            'form' => $form,
-        ]);
+        return $this->json(
+            $clientCustomer,
+            Response::HTTP_CREATED,
+            [],
+            ['groups' => 'customer:show']
+        );
     }
 
-    #[Route('/{id}', name: 'client_customer_delete', methods: ['POST'])]
-    public function delete(Request $request, ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'client_customer_delete', methods: ['DELETE'])]
+    public function delete(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$clientCustomer->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($clientCustomer);
-            $entityManager->flush();
-        }
+        $entityManager->remove($clientCustomer);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('client_customer_index', [], Response::HTTP_SEE_OTHER);
+        return $this->json(null, Response::HTTP_NO_CONTENT);
     }
 }
