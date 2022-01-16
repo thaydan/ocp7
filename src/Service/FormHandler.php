@@ -19,6 +19,10 @@ class FormHandler
         $this->requestStack = $requestStack;
     }
 
+    /**
+     * @throws PaginationErrorException
+     * @throws FormErrorException
+     */
     public function handle(string $formTypeClass, mixed $object): mixed
     {
         $form = $this->formFactory->create($formTypeClass, $object);

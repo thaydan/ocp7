@@ -3,30 +3,34 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\PaginationType;
+use App\Exception\FormErrorException;
+use App\Exception\PaginationErrorException;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Service\FormHandler;
 use App\Service\PaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
-    private PaginationHandler $formHandler;
+    private FormHandler $formHandler;
     private PaginationHandler $paginationHandler;
 
-    public function __construct(PaginationHandler $formHandler, PaginationHandler $paginationHandler)
+    public function __construct(FormHandler $formHandler, PaginationHandler $paginationHandler)
     {
         $this->formHandler = $formHandler;
         $this->paginationHandler = $paginationHandler;
     }
 
+    /**
+     * @throws PaginationErrorException
+     */
     #[Route('', name: 'product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository, Request $request): Response
+    public function index(ProductRepository $productRepository): Response
     {
         $pagination = $this->paginationHandler->handle();
 
@@ -53,6 +57,10 @@ class ProductController extends AbstractController
         );
     }
 
+    /**
+     * @throws PaginationErrorException
+     * @throws FormErrorException
+     */
     #[Route('/{id}', name: 'product_edit', methods: ['PUT'])]
     public function edit(Product $product, EntityManagerInterface $entityManager): Response
     {
@@ -68,8 +76,12 @@ class ProductController extends AbstractController
         );
     }
 
+    /**
+     * @throws PaginationErrorException
+     * @throws FormErrorException
+     */
     #[Route('', name: 'product_new', methods: ['POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(EntityManagerInterface $entityManager): Response
     {
         $product = $this->formHandler->handle(ProductType::class, new Product());
 

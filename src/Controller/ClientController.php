@@ -3,36 +3,36 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Exception\FormErrorException;
+use App\Exception\PaginationErrorException;
 use App\Form\ClientType;
-use App\Form\PaginationType;
 use App\Repository\ClientRepository;
+use App\Service\FormHandler;
 use App\Service\PaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/client')]
 class ClientController extends AbstractController
 {
-    private PaginationHandler $formHandler;
+    private FormHandler $formHandler;
+    private PaginationHandler $paginationHandler;
 
-    public function __construct(PaginationHandler $formHandler)
+    public function __construct(FormHandler $formHandler, PaginationHandler $paginationHandler)
     {
         $this->formHandler = $formHandler;
+        $this->paginationHandler = $paginationHandler;
     }
 
+    /**
+     * @throws PaginationErrorException
+     */
     #[Route('', name: 'client_index', methods: ['GET'])]
-    public function index(ClientRepository $clientRepository, Request $request): Response
+    public function index(ClientRepository $clientRepository): Response
     {
-        $paginationForm = $this->createForm(PaginationType::class);
-        $paginationForm->submit($request->query->all());
-
-        if (!($paginationForm->isSubmitted() && $paginationForm->isValid())) {
-            return $this->json('Bad Request', Response::HTTP_BAD_REQUEST);
-        }
-        $pagination = $paginationForm->getData();
+        $pagination = $this->paginationHandler->handle();
 
         return $this->json(
             $clientRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),
@@ -57,6 +57,10 @@ class ClientController extends AbstractController
         );
     }
 
+    /**
+     * @throws PaginationErrorException
+     * @throws FormErrorException
+     */
     #[Route('/{id}', name: 'client_edit', methods: ['PUT'])]
     public function edit(Client $client, EntityManagerInterface $entityManager): Response
     {
@@ -72,6 +76,10 @@ class ClientController extends AbstractController
         );
     }
 
+    /**
+     * @throws PaginationErrorException
+     * @throws FormErrorException
+     */
     #[Route('', name: 'client_new', methods: ['POST'])]
     public function new(EntityManagerInterface $entityManager): Response
     {
