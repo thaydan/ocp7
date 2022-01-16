@@ -6,7 +6,7 @@ use App\Entity\Product;
 use App\Form\PaginationType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Service\FormHandler;
+use App\Service\PaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,24 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
-    private FormHandler $formHandler;
+    private PaginationHandler $formHandler;
+    private PaginationHandler $paginationHandler;
 
-    public function __construct(FormHandler $formHandler)
+    public function __construct(PaginationHandler $formHandler, PaginationHandler $paginationHandler)
     {
         $this->formHandler = $formHandler;
+        $this->paginationHandler = $paginationHandler;
     }
 
     #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository, Request $request): Response
     {
-        $paginationForm = $this->createForm(PaginationType::class);
-        $paginationForm->submit($request->query->all());
-
-        if (!($paginationForm->isSubmitted() && $paginationForm->isValid())) {
-            return $this->json('Bad Request', Response::HTTP_BAD_REQUEST);
-        }
-        $pagination = $paginationForm->getData();
-        //dd($pagination);
+        $pagination = $this->paginationHandler->handle();
 
         return $this->json(
             $productRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),

@@ -6,8 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\GreaterThan;
-use Symfony\Component\Validator\Constraints\LessThan;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class PaginationType extends AbstractType
 {
@@ -16,13 +16,13 @@ class PaginationType extends AbstractType
         $builder
             ->add('page', NumberType::class, [
                 'constraints' => [
-                    new GreaterThan(0),
+                    new GreaterThanOrEqual(0),
                 ]
             ])
             ->add('nbElementsPerPage', NumberType::class, [
                 'constraints' => [
-                    new GreaterThan(5),
-                    new LessThan(40)
+                    new GreaterThanOrEqual(5),
+                    new LessThanOrEqual(40)
                 ]
             ]);
     }

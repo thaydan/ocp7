@@ -6,7 +6,7 @@ use App\Entity\ClientCustomer;
 use App\Form\ClientCustomerType;
 use App\Form\PaginationType;
 use App\Repository\ClientCustomerRepository;
-use App\Service\FormHandler;
+use App\Service\PaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/customer')]
 class ClientCustomerController extends AbstractController
 {
-    private FormHandler $formHandler;
+    private PaginationHandler $formHandler;
 
-    public function __construct(FormHandler $formHandler)
+    public function __construct(PaginationHandler $formHandler)
     {
         $this->formHandler = $formHandler;
     }
@@ -34,7 +34,8 @@ class ClientCustomerController extends AbstractController
         }
         $pagination = $paginationForm->getData();
 
-        return $this->json($clientCustomerRepository->findAll(),
+        return $this->json(
+            $clientCustomerRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),
             Response::HTTP_OK,
             [],
             [

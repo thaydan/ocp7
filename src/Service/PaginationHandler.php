@@ -2,14 +2,13 @@
 
 namespace App\Service;
 
-use App\Exception\FormErrorException;
 use App\Exception\PaginationErrorException;
+use App\Form\PaginationType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class FormHandler
+class PaginationHandler
 {
-
     private FormFactoryInterface $formFactory;
     private RequestStack $requestStack;
 
@@ -19,21 +18,18 @@ class FormHandler
         $this->requestStack = $requestStack;
     }
 
-    public function handle(string $formTypeClass, mixed $object): mixed
+    /**
+     * @throws PaginationErrorException
+     */
+    public function handle(): mixed
     {
-        $form = $this->formFactory->create($formTypeClass, $object);
-        $jsonDecode = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
+        $paginationForm = $this->formFactory->create(PaginationType::class);
+        $paginationForm->submit($this->requestStack->getCurrentRequest()->query->all());
 
-        if (json_last_error()) {
+        if (!($paginationForm->isSubmitted() && $paginationForm->isValid())) {
             throw new PaginationErrorException();
         }
 
-        $form->submit($jsonDecode);
-
-        if (!($form->isSubmitted() && $form->isValid())) {
-            throw new FormErrorException($form);
-        }
-
-        return $form->getData();
+        return $paginationForm->getData();
     }
 }
