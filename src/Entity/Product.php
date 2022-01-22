@@ -89,7 +89,7 @@ class Product
         return $this->brand;
     }
 
-    public function setBrand(?string $brand): self
+    public function setBrand(string $brand): self
     {
         $this->brand = $brand;
 
@@ -101,7 +101,7 @@ class Product
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -113,7 +113,7 @@ class Product
         return $this->OS;
     }
 
-    public function setOS(?string $OS): self
+    public function setOS(string $OS): self
     {
         $this->OS = $OS;
 
