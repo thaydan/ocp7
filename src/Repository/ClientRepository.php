@@ -19,13 +19,4 @@ class ClientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Client::class);
     }
-
-    public function findAllPaginated(int $page = 0, int $nbElementsPerPage = 20)
-    {
-        $q = $this->createQueryBuilder('client')
-            ->setFirstResult($page * $nbElementsPerPage)
-            ->setMaxResults($nbElementsPerPage);
-
-        return new Pagination($q);
-    }
 }

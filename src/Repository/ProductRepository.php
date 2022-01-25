@@ -13,19 +13,10 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product[]    findAll()
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProductRepository extends ServiceEntityRepository
+class ProductRepository extends ARepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
-    }
-
-    public function findAllPaginated(int $page = 0, int $nbElementsPerPage = 20)
-    {
-        $q = $this->createQueryBuilder('product')
-            ->setFirstResult($page * $nbElementsPerPage)
-            ->setMaxResults($nbElementsPerPage);
-
-        return new Pagination($q);
     }
 }
