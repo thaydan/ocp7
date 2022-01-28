@@ -23,7 +23,7 @@ class FormErrorExceptionNormalizer extends ANormalizer
 
         return new JsonResponse(
             [
-                'message' => 'Form Error',
+                'message' => $exception->getMessage(),
                 'errors' => $this->serializeErrors($exception->getForm())
             ],
             Response::HTTP_BAD_REQUEST
