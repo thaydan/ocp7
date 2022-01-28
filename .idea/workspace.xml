@@ -2,8 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-4-14">
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/FormPaginationErrorException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Normalizer/FormPaginationErrorExceptionNormalizer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Normalizer/NotFoundHttpExceptionNormalizer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ClientController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventListener/KernelException/ExceptionListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/KernelException/ExceptionListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/FormErrorException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exception/FormErrorException.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exception/PaginationErrorException.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ClientType.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Normalizer/FormErrorExceptionNormalizer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Normalizer/FormErrorExceptionNormalizer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FormHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FormHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/PaginationHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FormPaginationHandler.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +171,9 @@
       <workItem from="1643153496290" duration="1851000" />
       <workItem from="1643215679631" duration="3690000" />
       <workItem from="1643230272857" duration="221000" />
-      <workItem from="1643230507800" duration="345000" />
+      <workItem from="1643230507800" duration="2347000" />
+      <workItem from="1643237136247" duration="8000" />
+      <workItem from="1643318330515" duration="9703000" />
     </task>
     <task id="LOCAL-00001" summary="initialisation">
       <created>1641721964536</created>
@@ -285,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643230811459</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="issue-4-14">
+      <created>1643230872248</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1643230872248</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

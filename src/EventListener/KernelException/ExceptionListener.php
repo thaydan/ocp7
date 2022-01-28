@@ -17,10 +17,12 @@ class ExceptionListener
      * @var INormalizer[]
      */
     private array $normalizers;
+    private string $appEnv;
 
-    public function __construct(RewindableGenerator $normalizers)
+    public function __construct(RewindableGenerator $normalizers, string $appEnv)
     {
         $this->normalizers = iterator_to_array($normalizers);
+        $this->appEnv = $appEnv;
     }
 
     public function onKernelException(ExceptionEvent $event)
@@ -36,6 +38,10 @@ class ExceptionListener
             if ($normalizer->support($exception)) {
                 $response = $normalizer->normalize($exception);
             }
+        }
+
+        if(!$response && $this->appEnv = 'dev') {
+            return;
         }
 
         if (!$response) {

@@ -31,5 +31,6 @@ services:
     App\EventListener\KernelException\ExceptionListener:
         arguments:
             $normalizers: !tagged { tag: 'app.normalizer' }
+            $appEnv: '%env(APP_ENV)%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

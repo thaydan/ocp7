@@ -30,7 +30,7 @@ class FormErrorExceptionNormalizer extends ANormalizer
         );
     }
 
-    private function serializeErrors(FormInterface $form): array
+    protected function serializeErrors(FormInterface $form): array
     {
         $errors = [];
         foreach ($form->getErrors() as $formError) {
