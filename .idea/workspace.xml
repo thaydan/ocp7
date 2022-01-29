@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-4-14">
-      <change beforePath="$PROJECT_DIR$/.idea/symfony2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-8">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Client.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ClientRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ClientRepository.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="isssue-8" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -101,6 +104,13 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/vendor/namshi/jose" />
     </include_path>
   </component>
   <component name="ProjectId" id="23SJaYzN3URnLflAmyLPtRZoaTQ" />
@@ -157,7 +167,12 @@
       <workItem from="1643153496290" duration="1851000" />
       <workItem from="1643215679631" duration="3690000" />
       <workItem from="1643230272857" duration="221000" />
-      <workItem from="1643230507800" duration="345000" />
+      <workItem from="1643230507800" duration="2347000" />
+      <workItem from="1643237136247" duration="8000" />
+      <workItem from="1643318330515" duration="10040000" />
+      <workItem from="1643332231525" duration="55000" />
+      <workItem from="1643372937076" duration="4925000" />
+      <workItem from="1643488774717" duration="5068000" />
     </task>
     <task id="LOCAL-00001" summary="initialisation">
       <created>1641721964536</created>
@@ -285,7 +300,42 @@
       <option name="project" value="LOCAL" />
       <updated>1643230811459</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="issue-4-14">
+      <created>1643230872248</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1643230872248</updated>
+    </task>
+    <task id="LOCAL-00020" summary="issue-8">
+      <created>1643332177268</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1643332177268</updated>
+    </task>
+    <task id="LOCAL-00021" summary="issue-8">
+      <created>1643377388025</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1643377388025</updated>
+    </task>
+    <task id="LOCAL-00022" summary="issue-8">
+      <created>1643378684365</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1643378684365</updated>
+    </task>
+    <task id="LOCAL-00023" summary="issue-8">
+      <created>1643396155599</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1643396155599</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,6 +358,7 @@
     <MESSAGE value="issue-1" />
     <MESSAGE value="issue-4-14" />
     <MESSAGE value="issue-4-14" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue-4-14" />
+    <MESSAGE value="issue-8" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue-8" />
   </component>
 </project>

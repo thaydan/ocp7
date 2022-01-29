@@ -3,7 +3,8 @@
 namespace App\Service;
 
 use App\Exception\FormErrorException;
-use App\Exception\PaginationErrorException;
+use App\Exception\FormPaginationErrorException;
+use App\Exception\JsonInvalidException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -20,8 +21,7 @@ class FormHandler
     }
 
     /**
-     * @throws PaginationErrorException
-     * @throws FormErrorException
+     * @throws FormErrorException|JsonInvalidException
      */
     public function handle(string $formTypeClass, mixed $object): mixed
     {
@@ -29,7 +29,7 @@ class FormHandler
         $jsonDecode = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
 
         if (json_last_error()) {
-            throw new PaginationErrorException();
+            throw new JsonInvalidException();
         }
 
         $form->submit($jsonDecode);

@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\ClientCustomer;
 use App\Exception\FormErrorException;
-use App\Exception\PaginationErrorException;
+use App\Exception\FormPaginationErrorException;
 use App\Form\ClientCustomerType;
 use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
-use App\Service\PaginationHandler;
+use App\Service\FormPaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientCustomerController extends AbstractController
 {
     private FormHandler $formHandler;
-    private PaginationHandler $paginationHandler;
+    private FormPaginationHandler $paginationHandler;
 
-    public function __construct(FormHandler $formHandler, PaginationHandler $paginationHandler)
+    public function __construct(FormHandler $formHandler, FormPaginationHandler $paginationHandler)
     {
         $this->formHandler = $formHandler;
         $this->paginationHandler = $paginationHandler;
     }
 
     /**
-     * @throws PaginationErrorException
+     * @throws FormPaginationErrorException
      */
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
     public function index(ClientCustomerRepository $clientCustomerRepository): Response
@@ -58,7 +58,7 @@ class ClientCustomerController extends AbstractController
     }
 
     /**
-     * @throws PaginationErrorException
+     * @throws FormPaginationErrorException
      * @throws FormErrorException
      */
     #[Route('/{id}', name: 'client_customer_edit', methods: ['PUT'])]
@@ -72,12 +72,12 @@ class ClientCustomerController extends AbstractController
             $clientCustomer,
             Response::HTTP_OK,
             [],
-            ['groups' => 'product:show']
+            ['groups' => 'customer:show']
         );
     }
 
     /**
-     * @throws PaginationErrorException
+     * @throws FormPaginationErrorException
      * @throws FormErrorException
      */
     #[Route('', name: 'client_customer_new', methods: ['POST'])]
