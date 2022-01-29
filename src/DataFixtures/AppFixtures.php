@@ -7,14 +7,23 @@ use App\Entity\ClientCustomer;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $client = (new Client())
+        $client = new Client();
+        $client
             ->setEmail('demo@gmail.com')
-            ->setPassword('pass')
+            ->setPassword($this->passwordHasher->hashPassword($client, 'pass'))
             ->setName('Demo 1')
             ->setAddress('3 rue des Plesses')
             ->setZipCode(85180)
