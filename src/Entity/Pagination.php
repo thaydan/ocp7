@@ -5,29 +5,19 @@ namespace App\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Groups;
 
 class Pagination
 {
-    #[
-        Groups("read:all")
-    ]
+    #[Groups(["read:all"])]
     private array $elements;
-    #[
-        Groups("read:all")
-    ]
+    #[Groups(["read:all"])]
     private int $nbElements;
-    #[
-        Groups("read:all")
-    ]
+    #[Groups(["read:all"])]
     private int $nbElementsPerPage;
-    #[
-        Groups("read:all")
-    ]
+    #[Groups(["read:all"])]
     private int $nbPages;
-    #[
-        Groups("read:all")
-    ]
+    #[Groups(["read:all"])]
     private int $page;
 
     public function __construct(Query|QueryBuilder $q)
