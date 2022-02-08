@@ -3,20 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Exception\FormPaginationErrorException;
 use App\Repository\ProductRepository;
 use App\Service\FormPaginationHandler;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 #[Route('/api/product')]
-class ProductController extends AbstractController
+class ProductController extends AController
 {
     private FormPaginationHandler $paginationHandler;
     private SerializerInterface $serializer;
@@ -27,10 +26,6 @@ class ProductController extends AbstractController
         $this->serializer = $serializer;
     }
 
-    /**
-     * @throws FormPaginationErrorException
-     */
-    #[Route('', name: 'product_index', methods: ['GET'])]
     /**
      * List the rewards of the specified user.
      *
@@ -53,29 +48,22 @@ class ProductController extends AbstractController
      * @OA\Tag(name="products")
      * @Security(name="Bearer")
      */
+    #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
         $pagination = $this->paginationHandler->handle();
-        $productsPaginated = $productRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20);
 
-        $data = $this->serializer->serialize($productsPaginated, 'json', SerializationContext::create()->setGroups(['read:all', 'product:list']));
-
-        $response = (new Response($data))->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-
-//        return $this->json(
-//            $productRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),
-//            Response::HTTP_OK,
-//            [],
-//            [
-//                'groups' => [
-//                    'read:all',
-//                    'product:list'
-//                ]
-//            ]
-//        );
+        return $this->json(
+            $productRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage']),
+            Response::HTTP_OK,
+            [],
+            [
+                'groups' => [
+                    'read:all',
+                    'product:list'
+                ]
+            ]
+        );
     }
 
     #[Route('/{id}', name: 'product_show', methods: ['GET'])]

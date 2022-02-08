@@ -12,12 +12,11 @@ use App\Service\FormPaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/customer')]
-class ClientCustomerController extends AbstractController
+class ClientCustomerController extends AController
 {
     private FormHandler $formHandler;
     private FormPaginationHandler $paginationHandler;

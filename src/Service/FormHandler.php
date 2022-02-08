@@ -22,7 +22,7 @@ class FormHandler
 
     /**
      * @throws FormErrorException|JsonInvalidException
-     */
+     */                                                 // ajouter type => json, request, query
     public function handle(string $formTypeClass, mixed $object): mixed
     {
         $form = $this->formFactory->create($formTypeClass, $object);
