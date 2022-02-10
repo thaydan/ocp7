@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\ClientCustomer;
+use App\Entity\Pagination;
 use App\Exception\FormErrorException;
-use App\Exception\FormPaginationErrorException;
+use App\Exception\JsonInvalidException;
 use App\Form\ClientCustomerType;
+use App\Form\PaginationType;
 use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
-use App\Service\FormPaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,26 +19,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ClientCustomerController extends AController
 {
     private FormHandler $formHandler;
-    private FormPaginationHandler $paginationHandler;
 
-    public function __construct(
-        FormHandler           $formHandler,
-        FormPaginationHandler $paginationHandler,
-        SerializerInterface   $serializer
-    )
+    public function __construct(FormHandler $formHandler, ?SerializerInterface $serializer)
     {
         $this->formHandler = $formHandler;
-        $this->paginationHandler = $paginationHandler;
         parent::__construct($serializer);
     }
 
     /**
-     * @throws FormPaginationErrorException
+     * @throws FormErrorException
+     * @throws JsonInvalidException
      */
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
     public function index(ClientCustomerRepository $clientCustomerRepository): Response
     {
-        $pagination = $this->paginationHandler->handle();
+        $pagination = $this->formHandler->handle(PaginationType::class, null, 'query');
 
         return $this->json(
             $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage']),
@@ -63,13 +59,13 @@ class ClientCustomerController extends AController
     }
 
     /**
-     * @throws FormPaginationErrorException
      * @throws FormErrorException
+     * @throws JsonInvalidException
      */
     #[Route('/{id}', name: 'client_customer_edit', methods: ['PUT'])]
     public function edit(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {
-        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, $clientCustomer);
+        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, $clientCustomer, 'json');
 
         $entityManager->flush();
 
@@ -82,13 +78,13 @@ class ClientCustomerController extends AController
     }
 
     /**
-     * @throws FormPaginationErrorException
      * @throws FormErrorException
+     * @throws JsonInvalidException
      */
     #[Route('', name: 'client_customer_new', methods: ['POST'])]
     public function new(EntityManagerInterface $entityManager): Response
     {
-        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, new ClientCustomer());
+        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, new ClientCustomer(), 'json');
 
         $entityManager->persist($clientCustomer);
         $entityManager->flush();

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Pagination;
 use App\Entity\Product;
+use App\Form\PaginationType;
 use App\Repository\ProductRepository;
-use App\Service\FormPaginationHandler;
+use App\Service\FormHandler;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -15,11 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/product')]
 class ProductController extends AController
 {
-    private FormPaginationHandler $paginationHandler;
+    private FormHandler $formHandler;
 
-    public function __construct(FormPaginationHandler $paginationHandler, ?SerializerInterface $serializer)
+    public function __construct(FormHandler $formHandler, ?SerializerInterface $serializer)
     {
-        $this->paginationHandler = $paginationHandler;
+        $this->formHandler = $formHandler;
         parent::__construct($serializer);
     }
 
@@ -48,7 +50,7 @@ class ProductController extends AController
     #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
-        $pagination = $this->paginationHandler->handle();
+        $pagination = $this->formHandler->handle(PaginationType::class, null, 'query');
 
         return $this->json(
             $productRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage']),
