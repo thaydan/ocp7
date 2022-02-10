@@ -7,9 +7,9 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class AController extends AbstractController
+abstract class AController extends AbstractController
 {
-    private ?SerializerInterface $serializer = null;
+    private ?SerializerInterface $serializer;
 
     public function __construct(?SerializerInterface $serializer)
     {
@@ -18,10 +18,15 @@ class AController extends AbstractController
 
     public function json($data, int $status = 200, array $headers = [], array $context = []): JsonResponse
     {
-        if ($this->serializer) {
-            $jsonData = $this->serializer->serialize($data, 'json', SerializationContext::create()->setGroups($context['groups']));
-            return new JsonResponse(null, $status, $headers, $jsonData);
+        if ($this->serializer && $data) {
+            $serializationContext = null;
+            if (isset($context['groups']) and !empty($context['groups'])) {
+                $serializationContext = SerializationContext::create()->setGroups($context['groups']);
+            }
+            $jsonData = $this->serializer->serialize($data, 'json', $serializationContext);
+            return new JsonResponse($jsonData, $status, $headers, true);
         } else {
+            //dd($this->serializer);
             return parent::json($data, $status, $headers, $context);
         }
 

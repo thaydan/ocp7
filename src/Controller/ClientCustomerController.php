@@ -10,7 +10,6 @@ use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
 use App\Service\FormPaginationHandler;
 use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,17 +19,16 @@ class ClientCustomerController extends AController
 {
     private FormHandler $formHandler;
     private FormPaginationHandler $paginationHandler;
-    private SerializerInterface $serializer;
 
     public function __construct(
-        FormHandler $formHandler,
+        FormHandler           $formHandler,
         FormPaginationHandler $paginationHandler,
-        SerializerInterface $serializer
+        SerializerInterface   $serializer
     )
     {
         $this->formHandler = $formHandler;
         $this->paginationHandler = $paginationHandler;
-        $this->serializer = $serializer;
+        parent::__construct($serializer);
     }
 
     /**
@@ -40,43 +38,28 @@ class ClientCustomerController extends AController
     public function index(ClientCustomerRepository $clientCustomerRepository): Response
     {
         $pagination = $this->paginationHandler->handle();
-        $customersPaginated = $clientCustomerRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20);
 
-        $data = $this->serializer->serialize($customersPaginated, 'json', SerializationContext::create()->setGroups(['read:all', 'customer:list']));
-
-        $response = (new Response($data))->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-
-//        return $this->json(
-//            $clientCustomerRepository->findAllPaginated($pagination['page'] ?? 0, $pagination['nbElementsPerPage'] ?? 20),
-//            Response::HTTP_OK,
-//            [],
-//            [
-//                'groups' => [
-//                    'read:all',
-//                    'customer:list'
-//                ]
-//            ]
-//        );
+        return $this->json(
+            $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage']),
+            Response::HTTP_OK,
+            [],
+            [
+                'groups' => [
+                    'read:all',
+                    'customer:list'
+                ]
+            ]
+        );
     }
 
     #[Route('/{id}', name: 'client_customer_show', methods: ['GET'])]
     public function show(ClientCustomer $clientCustomer): Response
     {
-        $data = $this->serializer->serialize($clientCustomer, 'json', SerializationContext::create()->setGroups(['customer:show']));
-
-        $response = (new Response($data))->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-
-//        return $this->json($clientCustomer,
-//            Response::HTTP_OK,
-//            [],
-//            ['groups' => 'customer:show']
-//        );
+        return $this->json($clientCustomer,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'customer:show']
+        );
     }
 
     /**

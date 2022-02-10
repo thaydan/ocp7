@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Service\FormPaginationHandler;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,12 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AController
 {
     private FormPaginationHandler $paginationHandler;
-    private SerializerInterface $serializer;
 
-    public function __construct(FormPaginationHandler $paginationHandler, SerializerInterface $serializer)
+    public function __construct(FormPaginationHandler $paginationHandler, ?SerializerInterface $serializer)
     {
         $this->paginationHandler = $paginationHandler;
-        $this->serializer = $serializer;
+        parent::__construct($serializer);
     }
 
     /**
@@ -69,17 +66,10 @@ class ProductController extends AController
     #[Route('/{id}', name: 'product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
-        $data = $this->serializer->serialize($product, 'json', SerializationContext::create()->setGroups(['product:show']));
-
-        $response = (new Response($data))->setStatusCode(Response::HTTP_OK);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-
-//        return $this->json($product,
-//            Response::HTTP_OK,
-//            [],
-//            ['groups' => 'product:show']
-//        );
+        return $this->json($product,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'product:show']
+        );
     }
 }
