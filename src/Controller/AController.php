@@ -20,13 +20,18 @@ abstract class AController extends AbstractController
     {
         if ($this->serializer && $data) {
             $serializationContext = null;
-            if (isset($context['groups']) and !empty($context['groups'])) {
+            if (isset($context['groups'])) {
                 $serializationContext = SerializationContext::create()->setGroups($context['groups']);
             }
-            $jsonData = $this->serializer->serialize($data, 'json', $serializationContext);
-            return new JsonResponse($jsonData, $status, $headers, true);
+            return new JsonResponse(
+                $this->serializer->serialize($data, 'json', $serializationContext),
+                $status,
+                $headers,
+                true
+            );
         } else {
             //dd($this->serializer);
+            //dd($context);
             return parent::json($data, $status, $headers, $context);
         }
 
