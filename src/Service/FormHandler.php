@@ -40,7 +40,7 @@ class FormHandler
             $data = $this->requestStack->getCurrentRequest()->request->all();
         }
         else {
-            throw new InvalidArgumentException('Invalid data input type.');
+            throw new InvalidArgumentException('FormHandler : Invalid data input type.');
         }
 
         $form->submit($data);

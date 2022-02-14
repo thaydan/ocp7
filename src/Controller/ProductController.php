@@ -19,7 +19,7 @@ class ProductController extends AController
 {
     private FormHandler $formHandler;
 
-    public function __construct(FormHandler $formHandler, ?SerializerInterface $serializer)
+    public function __construct(FormHandler $formHandler, SerializerInterface $serializer)
     {
         $this->formHandler = $formHandler;
         parent::__construct($serializer);

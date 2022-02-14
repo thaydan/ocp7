@@ -9,31 +9,24 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class AController extends AbstractController
 {
-    private ?SerializerInterface $serializer;
+    private SerializerInterface $serializer;
 
-    public function __construct(?SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
     public function json($data, int $status = 200, array $headers = [], array $context = []): JsonResponse
     {
-        if ($this->serializer && $data) {
-            $serializationContext = null;
-            if (isset($context['groups'])) {
-                $serializationContext = SerializationContext::create()->setGroups($context['groups']);
-            }
-            return new JsonResponse(
-                $this->serializer->serialize($data, 'json', $serializationContext),
-                $status,
-                $headers,
-                true
-            );
-        } else {
-            //dd($this->serializer);
-            //dd($context);
-            return parent::json($data, $status, $headers, $context);
+        $serializationContext = SerializationContext::create()->setSerializeNull(true);
+        if(isset($context['groups'])) {
+            $serializationContext->setGroups($context['groups']);
         }
-
+        return new JsonResponse(
+            $this->serializer->serialize($data, 'json', $serializationContext),
+            $status,
+            $headers,
+            true
+        );
     }
 }

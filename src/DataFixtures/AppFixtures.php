@@ -8,6 +8,7 @@ use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Faker;
 
 class AppFixtures extends Fixture
 {
@@ -20,25 +21,34 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $client = new Client();
-        $client
-            ->setEmail('demo@gmail.com')
-            ->setPassword($this->passwordHasher->hashPassword($client, 'pass'))
-            ->setName('Demo 1')
-            ->setAddress('3 rue des Plesses')
-            ->setZipCode(85180)
-            ->setCountry('France')
-            ->setRoles([])
-        ;
-        $manager->persist($client);
+        $datetimeImmutable = new \DateTimeImmutable();
 
-        $clientCustomer = (new ClientCustomer())
-            ->setEmail('customer1@gmail.com')
-            ->setFirstName('Steve')
-            ->setLastName('Joe')
-            ->setClient($client)
-        ;
-        $manager->persist($clientCustomer);
+        $faker = Faker\Factory::create('fr_FR');
+
+        for ($i = 0; $i < 10; $i++) {
+            $client = new Client();
+            $client
+                ->setEmail("client$i@gmail.com")
+                ->setPassword($this->passwordHasher->hashPassword($client, "client$i"))
+                ->setName($faker->company)
+                ->setAddress($faker->streetAddress)
+                ->setZipCode($faker->postcode)
+                ->setCountry($faker->country)
+                ->setRoles([])
+            ;
+            $manager->persist($client);
+
+            for ($j = 0; $j < 30; $j++) {
+                $clientCustomer = (new ClientCustomer())
+                    ->setEmail("customer$i@gmail.com")
+                    ->setFirstName($faker->firstName)
+                    ->setLastName($faker->lastName)
+                    ->setClient($client)
+                ;
+                $manager->persist($clientCustomer);
+            }
+        }
+
 
         $product = (new Product())
             ->setBrand('Google')
@@ -55,8 +65,8 @@ class AppFixtures extends Fixture
             ->setConnectivity('5G')
             ->setMicroSD(false)
             ->setColor('Black')
-            ->setCreatedAt(new \DateTimeImmutable())
-            ->setUpdatedAt(new \DateTimeImmutable());
+            ->setCreatedAt($datetimeImmutable)
+            ->setUpdatedAt($datetimeImmutable);
         $manager->persist($product);
 
         $manager->flush();
