@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\ClientCustomer;
-use App\Entity\Pagination;
 use App\Exception\FormErrorException;
 use App\Exception\JsonInvalidException;
 use App\Form\ClientCustomerType;
@@ -12,6 +11,9 @@ use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,6 +29,30 @@ class ClientCustomerController extends AController
     }
 
     /**
+     * Get the list of your customers
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Return the list of your customers",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"read:all", "customer:list"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="page",
+     *     in="query",
+     *     description="The page number",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Parameter(
+     *     name="nbElementsPerPage",
+     *     in="query",
+     *     description="The number of customers to show per page (min=5, max=40)",
+     *     @OA\Schema(type="integer", minimum="5", maximum="40")
+     * )
+     * @OA\Tag(name="Customers")
+     *
      * @throws FormErrorException
      * @throws JsonInvalidException
      */
@@ -48,6 +74,26 @@ class ClientCustomerController extends AController
         );
     }
 
+
+    /**
+     * Show the details of a customer
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Returns the details of a customer",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Id of the customer",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Customers")
+     */
     #[Route('/{id}', name: 'client_customer_show', methods: ['GET'])]
     public function show(ClientCustomer $clientCustomer): Response
     {
@@ -59,6 +105,24 @@ class ClientCustomerController extends AController
     }
 
     /**
+     * Edit a customer
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Return the edited customer",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Id of the customer",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Customers")
+     *
      * @throws FormErrorException
      * @throws JsonInvalidException
      */
@@ -78,6 +142,24 @@ class ClientCustomerController extends AController
     }
 
     /**
+     * Add a new customer
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Return new added customer",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Id of the customer",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Customers")
+     *
      * @throws FormErrorException
      * @throws JsonInvalidException
      */
@@ -97,6 +179,26 @@ class ClientCustomerController extends AController
         );
     }
 
+    /**
+     *
+     * Delete a customer
+     *
+     * @OA\Response(
+     *     response=204,
+     *     description="Returns an empty response if the deletion was successful.",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Id of the customer",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Customers")
+     */
     #[Route('/{id}', name: 'client_customer_delete', methods: ['DELETE'])]
     public function delete(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {

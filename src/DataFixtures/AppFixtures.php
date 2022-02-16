@@ -9,6 +9,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class AppFixtures extends Fixture
 {
@@ -24,6 +25,7 @@ class AppFixtures extends Fixture
         $datetimeImmutable = new \DateTimeImmutable();
 
         $faker = Faker\Factory::create('fr_FR');
+        $slugger = new AsciiSlugger();
 
         for ($i = 0; $i < 10; $i++) {
             $client = new Client();
@@ -38,10 +40,12 @@ class AppFixtures extends Fixture
             $manager->persist($client);
 
             for ($j = 0; $j < 30; $j++) {
+                $firstName = $faker->firstName;
+                $lastName = $faker->lastName;
                 $clientCustomer = (new ClientCustomer())
-                    ->setEmail("customer$i@gmail.com")
-                    ->setFirstName($faker->firstName)
-                    ->setLastName($faker->lastName)
+                    ->setEmail(strtolower($slugger->slug($firstName) . "." . $slugger->slug($lastName) . "@gmail.com"))
+                    ->setFirstName($firstName)
+                    ->setLastName($lastName)
                     ->setClient($client);
                 $manager->persist($clientCustomer);
             }
@@ -65,21 +69,21 @@ class AppFixtures extends Fixture
             ['Apple', 'Iphone 12', 1, 1, 0]
         ];
         foreach ($productsFixtures as $product) {
+            $width = rand(550, 780) / 10;
+            $height = round($width * 164/76, 1);
+            $screenSize = round(sqrt($width * $width + $height * $height) / 25.4, 1);
             $product = (new Product())
                 ->setBrand($product[0])
                 ->setName($product[1])
                 ->setOS($productOS[$product[2]])
                 ->setStorage($productStorage[$product[3]])
                 ->setRAM($productRAM[$product[4]])
-                //
-                ->setScreenSize(6.7)
-                ->setWeight(210)
-                ->setWidth(75.9)
-                ->setHeight(163.9)
-                ->setDepth(8.9)
-                ->setBattery(5003)
-                //
-                //
+                ->setScreenSize($screenSize)
+                ->setWeight(rand(180, 250))
+                ->setWidth($width)
+                ->setHeight($height)
+                ->setDepth(rand(75, 95) / 10)
+                ->setBattery(rand(4500, 6000))
                 ->setConnectivity('5G')
                 ->setMicroSD((rand(0, 1)))
                 ->setColor($productColor[rand(0, 3)])

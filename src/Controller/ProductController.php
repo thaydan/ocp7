@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Pagination;
 use App\Entity\Product;
 use App\Form\PaginationType;
 use App\Repository\ProductRepository;
@@ -26,26 +25,29 @@ class ProductController extends AController
     }
 
     /**
-     * List the rewards of the specified user.
-     *
-     * This call takes into account all confirmed awards, but not pending or refused awards.
+     * Get the list of the available products
      *
      * @OA\Response(
      *     response=200,
-     *     description="Returns all the product of an user",
+     *     description="Return the list of products available",
      *     @OA\JsonContent(
      *        type="array",
-     *        @OA\Items(ref=@Model(type=Product::class, groups={"product:list"}))
+     *        @OA\Items(ref=@Model(type=Product::class, groups={"read:all", "product:list"}))
      *     )
      * )
      * @OA\Parameter(
-     *     name="order",
+     *     name="page",
      *     in="query",
-     *     description="The field used to order rewards",
-     *     @OA\Schema(type="string")
+     *     description="The page number",
+     *     @OA\Schema(type="integer")
      * )
-     * @OA\Tag(name="products")
-     * @Security(name="Bearer")
+     * @OA\Parameter(
+     *     name="nbElementsPerPage",
+     *     in="query",
+     *     description="The number of products to show per page (min=5, max=40)",
+     *     @OA\Schema(type="integer", minimum="5", maximum="40")
+     * )
+     * @OA\Tag(name="Products")
      */
     #[Route('', name: 'product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
@@ -65,6 +67,25 @@ class ProductController extends AController
         );
     }
 
+    /**
+     * Get the details of a product
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Returns the details of a product",
+     *     @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=Product::class, groups={"product:show"}))
+     *     )
+     * )
+     * @OA\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Id of the product",
+     *     @OA\Schema(type="integer")
+     * )
+     * @OA\Tag(name="Products")
+     */
     #[Route('/{id}', name: 'product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
