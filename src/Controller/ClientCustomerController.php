@@ -11,7 +11,6 @@ use App\Repository\ClientCustomerRepository;
 use App\Service\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,7 +61,7 @@ class ClientCustomerController extends AController
         $pagination = $this->formHandler->handle(PaginationType::class, null, 'query');
 
         return $this->json(
-            $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage']),
+            $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage'], ['client' => $this->getUser()]),
             Response::HTTP_OK,
             [],
             [
@@ -97,6 +96,8 @@ class ClientCustomerController extends AController
     #[Route('/{id}', name: 'client_customer_show', methods: ['GET'])]
     public function show(ClientCustomer $clientCustomer): Response
     {
+        $this->denyAccessUnlessIsOwner($clientCustomer);
+
         return $this->json($clientCustomer,
             Response::HTTP_OK,
             [],
@@ -129,8 +130,9 @@ class ClientCustomerController extends AController
     #[Route('/{id}', name: 'client_customer_edit', methods: ['PUT'])]
     public function edit(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {
-        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, $clientCustomer, 'json');
+        $this->denyAccessUnlessIsOwner($clientCustomer);
 
+        $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, $clientCustomer, 'json');
         $entityManager->flush();
 
         return $this->json(
@@ -187,8 +189,7 @@ class ClientCustomerController extends AController
      *     response=204,
      *     description="Returns an empty response if the deletion was successful.",
      *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *        type="string", nullable=true, example=""
      *     )
      * )
      * @OA\Parameter(
@@ -202,9 +203,18 @@ class ClientCustomerController extends AController
     #[Route('/{id}', name: 'client_customer_delete', methods: ['DELETE'])]
     public function delete(ClientCustomer $clientCustomer, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessIsOwner($clientCustomer);
+
         $entityManager->remove($clientCustomer);
         $entityManager->flush();
 
         return $this->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    private function denyAccessUnlessIsOwner($clientCustomer): void
+    {
+        if ($clientCustomer->getClient() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
     }
 }
