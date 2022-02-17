@@ -35,6 +35,7 @@ class AppFixtures extends Fixture
                 ->setName($faker->company)
                 ->setAddress($faker->streetAddress)
                 ->setZipCode((int)$faker->postcode)
+                ->setCity($faker->city)
                 ->setCountry($faker->country)
                 ->setRoles([]);
             $manager->persist($client);
