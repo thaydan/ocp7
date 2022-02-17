@@ -4,7 +4,7 @@
 To know all about the request entries, the parameters and make tests, go to the documentation by accessing : /api/doc
 
 ## Get a JWT authentication token
-Send a GET request with json content to /api/login_check
+Send a GET or POST request with json content to /api/login_check
 
 Example :
 {
