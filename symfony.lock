@@ -244,6 +244,9 @@
     "symfony/event-dispatcher-contracts": {
         "version": "v3.0.0"
     },
+    "symfony/expression-language": {
+        "version": "v5.4.3"
+    },
     "symfony/filesystem": {
         "version": "v5.4.0"
     },
@@ -453,6 +456,21 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "willdurand/hateoas": {
+        "version": "3.8.0"
+    },
+    "willdurand/hateoas-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "34df072c6edaa61ae19afb2f3a239f272fecab87"
+        },
+        "files": [
+            "./config/packages/bazinga_hateoas.yaml"
+        ]
     },
     "zircote/swagger-php": {
         "version": "4.2.6"
