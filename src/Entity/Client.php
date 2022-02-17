@@ -50,6 +50,9 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: ClientCustomer::class, orphanRemoval: true)]
     private $customers;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $city;
+
     public function __construct()
     {
         $this->customers = new ArrayCollection();
@@ -218,6 +221,18 @@ class Client implements UserInterface, PasswordAuthenticatedUserInterface
                 $customer->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
