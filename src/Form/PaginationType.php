@@ -17,13 +17,17 @@ class PaginationType extends AbstractType
             ->add('page', NumberType::class, [
                 'constraints' => [
                     new GreaterThanOrEqual(0),
-                ]
+                ],
+                'required' => false,
+                'empty_data' => "0"
             ])
             ->add('nbElementsPerPage', NumberType::class, [
                 'constraints' => [
                     new GreaterThanOrEqual(5),
                     new LessThanOrEqual(40)
-                ]
+                ],
+                'required' => false,
+                'empty_data' => "20"
             ]);
     }
 

@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Exception\FormErrorException;
-use App\Exception\FormPaginationErrorException;
 use App\Exception\JsonInvalidException;
+use Psr\Log\InvalidArgumentException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -23,16 +23,27 @@ class FormHandler
     /**
      * @throws FormErrorException|JsonInvalidException
      */
-    public function handle(string $formTypeClass, mixed $object): mixed
+    public function handle(string $formTypeClass, mixed $object, string $type): mixed
     {
         $form = $this->formFactory->create($formTypeClass, $object);
-        $jsonDecode = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
 
-        if (json_last_error()) {
-            throw new JsonInvalidException();
+        if($type == 'json') {
+            $data = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
+            if (json_last_error()) {
+                throw new JsonInvalidException();
+            }
+        }
+        elseif ($type == 'query') {     // GET
+            $data = $this->requestStack->getCurrentRequest()->query->all();
+        }
+        elseif ($type == 'request') {   // POST
+            $data = $this->requestStack->getCurrentRequest()->request->all();
+        }
+        else {
+            throw new InvalidArgumentException('FormHandler : Invalid data input type.');
         }
 
-        $form->submit($jsonDecode);
+        $form->submit($data);
 
         if (!($form->isSubmitted() && $form->isValid())) {
             throw new FormErrorException($form);

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-8">
+    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ClientRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ClientRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ClientCustomerType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ClientCustomerType.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +18,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="isssue-8" />
+        <entry key="$PROJECT_DIR$" value="issue-8" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -111,6 +109,20 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/vendor/namshi/jose" />
+      <path value="$PROJECT_DIR$/vendor/nelmio/api-doc-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/zircote/swagger-php" />
+      <path value="$PROJECT_DIR$/vendor/symfony/asset" />
+      <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-profiler-bundle" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
     </include_path>
   </component>
   <component name="ProjectId" id="23SJaYzN3URnLflAmyLPtRZoaTQ" />
@@ -123,18 +135,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/fonts" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\ocp7-dev\public\fonts" />
+      <recent name="C:\wamp64\www\ocp7-dev\public\bundles\nelmioapidoc" />
       <recent name="C:\wamp64\www\ocp7-dev\src" />
       <recent name="C:\wamp64\www\ocp7-dev\src\Exception" />
       <recent name="C:\wamp64\www\ocp7-dev\src\Service" />
-      <recent name="C:\wamp64\www\ocp7-dev\src\Entity" />
-      <recent name="C:\wamp64\www\ocp7-dev\src\Form" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\ocp7-dev\public\bundles\nelmioapidoc" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -172,7 +187,30 @@
       <workItem from="1643318330515" duration="10040000" />
       <workItem from="1643332231525" duration="55000" />
       <workItem from="1643372937076" duration="4925000" />
-      <workItem from="1643488774717" duration="5068000" />
+      <workItem from="1643488774717" duration="6452000" />
+      <workItem from="1643553933069" duration="10000" />
+      <workItem from="1643554047481" duration="2000" />
+      <workItem from="1643554314241" duration="19000" />
+      <workItem from="1643554834713" duration="621000" />
+      <workItem from="1643626648729" duration="14000" />
+      <workItem from="1643654810183" duration="15000" />
+      <workItem from="1643727654123" duration="646000" />
+      <workItem from="1643824213081" duration="2477000" />
+      <workItem from="1643910289092" duration="39000" />
+      <workItem from="1643914966467" duration="4000" />
+      <workItem from="1644255784552" duration="9725000" />
+      <workItem from="1644279724394" duration="10000" />
+      <workItem from="1644342344410" duration="5117000" />
+      <workItem from="1644350965884" duration="650000" />
+      <workItem from="1644447956211" duration="1214000" />
+      <workItem from="1644494755187" duration="12646000" />
+      <workItem from="1644583988644" duration="3079000" />
+      <workItem from="1644618339631" duration="24000" />
+      <workItem from="1644764279987" duration="1376000" />
+      <workItem from="1644860083589" duration="8068000" />
+      <workItem from="1645032104842" duration="13230000" />
+      <workItem from="1645104550681" duration="14000" />
+      <workItem from="1645111924369" duration="8907000" />
     </task>
     <task id="LOCAL-00001" summary="initialisation">
       <created>1641721964536</created>
@@ -335,7 +373,98 @@
       <option name="project" value="LOCAL" />
       <updated>1643396155599</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="issue-8">
+      <created>1643494332139</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1643494332139</updated>
+    </task>
+    <task id="LOCAL-00025" summary="issue-8">
+      <created>1644269898449</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1644269898449</updated>
+    </task>
+    <task id="LOCAL-00026" summary="issue-8">
+      <created>1644272377098</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1644272377098</updated>
+    </task>
+    <task id="LOCAL-00027" summary="issue-8">
+      <created>1644273153429</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1644273153429</updated>
+    </task>
+    <task id="LOCAL-00028" summary="issue-8">
+      <created>1644350605365</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1644350605365</updated>
+    </task>
+    <task id="LOCAL-00029" summary="issue-8">
+      <created>1644507455622</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1644507455622</updated>
+    </task>
+    <task id="LOCAL-00030" summary="issue-8">
+      <created>1644512546707</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1644512546707</updated>
+    </task>
+    <task id="LOCAL-00031" summary="issue-8">
+      <created>1644765649472</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1644765649472</updated>
+    </task>
+    <task id="LOCAL-00032" summary="issue-11">
+      <created>1644866271426</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1644866271426</updated>
+    </task>
+    <task id="LOCAL-00033" summary="issue-11">
+      <created>1644871727907</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1644871727907</updated>
+    </task>
+    <task id="LOCAL-00034" summary="issue-11">
+      <created>1645052854644</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1645052854644</updated>
+    </task>
+    <task id="LOCAL-00035" summary="issue-11">
+      <created>1645119863021</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1645119863021</updated>
+    </task>
+    <task id="LOCAL-00036" summary="issue-11">
+      <created>1645123889519</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1645123889519</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,6 +488,7 @@
     <MESSAGE value="issue-4-14" />
     <MESSAGE value="issue-4-14" />
     <MESSAGE value="issue-8" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue-8" />
+    <MESSAGE value="issue-11" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue-11" />
   </component>
 </project>
