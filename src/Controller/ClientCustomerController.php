@@ -169,6 +169,7 @@ class ClientCustomerController extends AController
     public function new(EntityManagerInterface $entityManager): Response
     {
         $clientCustomer = $this->formHandler->handle(ClientCustomerType::class, new ClientCustomer(), 'json');
+        $clientCustomer->setClient($this->getUser());
 
         $entityManager->persist($clientCustomer);
         $entityManager->flush();
