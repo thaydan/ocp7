@@ -45,7 +45,7 @@ class ProductController extends AController
      *     name="nbElementsPerPage",
      *     in="query",
      *     description="The number of products to show per page (min=5, max=40)",
-     *     @OA\Schema(type="integer", minimum="5", maximum="40")
+     *     @OA\Schema(type="integer", minimum=5, maximum=40)
      * )
      * @OA\Tag(name="Products")
      */
