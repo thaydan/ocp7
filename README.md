@@ -25,7 +25,10 @@ This will return your token.
 [explain]
 
 ## Make a request
-Exemple :
+For example, to get the list of the available products, send :  
+/api/product  
+
+This will return a JSON response.
 
 # Developper installation
 
