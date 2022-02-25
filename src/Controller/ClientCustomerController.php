@@ -71,12 +71,12 @@ class ClientCustomerController extends AController
      * @throws JsonInvalidException
      */
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
-    public function index(ClientCustomerRepository $clientCustomerRepository): Response
+    public function index(ClientCustomerRepository $customerRepository): Response
     {
         $pagination = $this->formHandler->handle(PaginationType::class, null, 'query');
 
         return $this->json(
-            $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage'], ['client' => $this->getUser()]),
+            $customerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage'], ['client' => $this->getUser()]),
             Response::HTTP_OK,
             [],
             [
