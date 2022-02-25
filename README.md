@@ -25,7 +25,7 @@ This will return your token.
 [explain]
 
 ## Make a request
-For example :
+Some examples :
 - Get the list of the available products : /api/product
 - Get the detail of a product : /api/product/{product_id} 
 
