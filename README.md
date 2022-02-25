@@ -15,8 +15,8 @@ Send a GET or POST request with json content to /api/login_check
 
 Example :  
 {  
-    "username":"your_login",  
-    "password":"your_password"  
+&nbsp;&nbsp;"username":"your_login",  
+&nbsp;&nbsp;"password":"your_password"  
 }  
 
 This will return your token.
