@@ -27,20 +27,21 @@ class FormHandler
     {
         $form = $this->formFactory->create($formTypeClass, $object);
 
-        if($type == 'json') {
-            $data = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
-            if (json_last_error()) {
-                throw new JsonInvalidException();
-            }
-        }
-        elseif ($type == 'query') {     // GET
-            $data = $this->requestStack->getCurrentRequest()->query->all();
-        }
-        elseif ($type == 'request') {   // POST
-            $data = $this->requestStack->getCurrentRequest()->request->all();
-        }
-        else {
-            throw new InvalidArgumentException('FormHandler : Invalid data input type.');
+        switch ($type) {
+            case 'json':
+                $data = json_decode($this->requestStack->getCurrentRequest()->getContent(), true);
+                if (json_last_error()) {
+                    throw new JsonInvalidException();
+                }
+                break;
+            case 'query':       // GET
+                $data = $this->requestStack->getCurrentRequest()->query->all();
+                break;
+            case 'request':     // POST
+                $data = $this->requestStack->getCurrentRequest()->request->all();
+                break;
+            default:
+                throw new InvalidArgumentException('FormHandler : Invalid data input type.');
         }
 
         $form->submit($data);
