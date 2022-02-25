@@ -1,5 +1,7 @@
 # ocp7
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fff02e5a273d4b6fb8e9088e9c1bd1ee)](https://app.codacy.com/gh/thaydan/ocp7?utm_source=github.com&utm_medium=referral&utm_content=thaydan/ocp7&utm_campaign=Badge_Grade_Settings)
+
 BileMo is a BTB smartphone provider, when you have a client account with us, you can access the list of smartphones we offer through our API. You also have the possibility to manage your customers directly from our API. 
 Here is how to use it.
 
