@@ -13,11 +13,11 @@ To know all about the request entries, the parameters and make tests, go to the 
 ## Get a JWT authentication token
 Send a GET or POST request with json content to /api/login_check
 
-Example :
-{
-    "username":"your_login",
-    "password":"your_password"
-}
+Example :  
+{  
+    "username":"your_login",  
+    "password":"your_password"  
+}  
 
 This will return your token.
 
