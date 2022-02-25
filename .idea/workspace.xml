@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-18">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ClientCustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +146,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -224,7 +226,10 @@
       <workItem from="1645743414555" duration="246000" />
       <workItem from="1645743670925" duration="12000" />
       <workItem from="1645746257242" duration="750000" />
-      <workItem from="1645747064512" duration="44000" />
+      <workItem from="1645747064512" duration="786000" />
+      <workItem from="1645748036878" duration="2235000" />
+      <workItem from="1645750282038" duration="31000" />
+      <workItem from="1645750364391" duration="1732000" />
     </task>
     <task id="LOCAL-00001" summary="initialisation">
       <created>1641721964536</created>
@@ -478,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645123889519</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="issue-18">
+      <created>1645747135690</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1645747135690</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

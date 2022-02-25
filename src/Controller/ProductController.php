@@ -31,8 +31,23 @@ class ProductController extends AController
      *     response=200,
      *     description="Return the list of products available",
      *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=Product::class, groups={"read:all", "product:list"}))
+     *         @OA\Property(
+     *             property="elements",
+     *             type="array",
+     *             @OA\Items(ref=@Model(type=Product::class, groups={"read:all", "product:list"}))
+     *         ),
+     *         @OA\Property(
+     *             property="nbPage",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElements",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElementsPerPage",
+     *             type="integer"
+     *         )
      *     )
      * )
      * @OA\Parameter(

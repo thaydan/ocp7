@@ -34,8 +34,23 @@ class ClientCustomerController extends AController
      *     response=200,
      *     description="Return the list of your customers",
      *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"read:all", "customer:list"}))
+     *         @OA\Property(
+     *             property="elements",
+     *             type="array",
+     *             @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"read:all", "customer:list"}))
+     *         ),
+     *         @OA\Property(
+     *             property="nbPage",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElements",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElementsPerPage",
+     *             type="integer"
+     *         )
      *     )
      * )
      * @OA\Parameter(
@@ -121,6 +136,15 @@ class ClientCustomerController extends AController
      *     in="path",
      *     description="Id of the customer",
      *     @OA\Schema(type="integer")
+     * )
+     * @OA\Parameter(
+     *     name="body",
+     *     in="header",
+     *     description="Body",
+     *     @OA\Schema(
+     *          type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *      )
      * )
      * @OA\Tag(name="Customers")
      *

@@ -32,17 +32,17 @@ class AppFixtures extends Fixture
             $client
                 ->setEmail("client$i@gmail.com")
                 ->setPassword($this->passwordHasher->hashPassword($client, "client$i"))
-                ->setName($faker->company)
-                ->setAddress($faker->streetAddress)
-                ->setZipCode((int)$faker->postcode)
-                ->setCity($faker->city)
-                ->setCountry($faker->country)
+                ->setName($faker->company())
+                ->setAddress($faker->streetAddress())
+                ->setZipCode((int)$faker->postcode())
+                ->setCity($faker->city())
+                ->setCountry($faker->country())
                 ->setRoles([]);
             $manager->persist($client);
 
             for ($j = 0; $j < 30; $j++) {
-                $firstName = $faker->firstName;
-                $lastName = $faker->lastName;
+                $firstName = $faker->firstName();
+                $lastName = $faker->lastName();
                 $clientCustomer = (new ClientCustomer())
                     ->setEmail(strtolower($slugger->slug($firstName) . "." . $slugger->slug($lastName) . "@gmail.com"))
                     ->setFirstName($firstName)
