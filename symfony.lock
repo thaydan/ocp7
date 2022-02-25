@@ -469,7 +469,7 @@
             "ref": "34df072c6edaa61ae19afb2f3a239f272fecab87"
         },
         "files": [
-            "./config/packages/bazinga_hateoas.yaml"
+            "config/packages/bazinga_hateoas.yaml"
         ]
     },
     "zircote/swagger-php": {

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ClientCustomerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
+
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
@@ -17,7 +18,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          absolute = true
  *      )
  * )
- *
  * @Hateoas\Relation(
  *      "modify",
  *      href = @Hateoas\Route(
@@ -34,7 +34,6 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          absolute = true
  *      )
  * )
- *
  */
 #[ORM\Entity(repositoryClass: ClientCustomerRepository::class)]
 class ClientCustomer

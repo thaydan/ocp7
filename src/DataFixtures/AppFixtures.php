@@ -14,17 +14,18 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
+    private Faker\Generator $faker;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->faker = Faker\Factory::create('fr_FR');
     }
 
     public function load(ObjectManager $manager): void
     {
         $datetimeImmutable = new \DateTimeImmutable();
 
-        $faker = Faker\Factory::create('fr_FR');
         $slugger = new AsciiSlugger();
 
         for ($i = 0; $i < 10; $i++) {
@@ -32,16 +33,17 @@ class AppFixtures extends Fixture
             $client
                 ->setEmail("client$i@gmail.com")
                 ->setPassword($this->passwordHasher->hashPassword($client, "client$i"))
-                ->setName($faker->company)
-                ->setAddress($faker->streetAddress)
-                ->setZipCode((int)$faker->postcode)
-                ->setCountry($faker->country)
+                ->setName($this->faker->company())
+                ->setAddress($this->faker->streetAddress())
+                ->setZipCode((int)$this->faker->postcode())
+                ->setCity($this->faker->city())
+                ->setCountry($this->faker->country())
                 ->setRoles([]);
             $manager->persist($client);
 
             for ($j = 0; $j < 30; $j++) {
-                $firstName = $faker->firstName;
-                $lastName = $faker->lastName;
+                $firstName = $this->faker->firstName();
+                $lastName = $this->faker->lastName();
                 $clientCustomer = (new ClientCustomer())
                     ->setEmail(strtolower($slugger->slug($firstName) . "." . $slugger->slug($lastName) . "@gmail.com"))
                     ->setFirstName($firstName)

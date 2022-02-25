@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-11">
-      <change beforePath="$PROJECT_DIR$/.idea/ocp7-dev.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ocp7-dev.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="afb46dd2-8d7e-45a5-ac41-37c698c2d6f3" name="Changes" comment="issue-18">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ClientCustomer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ClientCustomer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/AppFixtures.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FormHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FormHandler.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +13,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -30,7 +26,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="ac750908-d420-4abc-8479-ca6ba69abcb2" />
+    <option name="defaultAccountId" value="550b3630-db84-4445-ba5d-1649110f0133" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -134,6 +133,9 @@
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
     </include_path>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="23SJaYzN3URnLflAmyLPtRZoaTQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -144,9 +146,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/fonts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -220,6 +222,17 @@
       <workItem from="1645032104842" duration="13230000" />
       <workItem from="1645104550681" duration="14000" />
       <workItem from="1645111924369" duration="8907000" />
+      <workItem from="1645742776780" duration="136000" />
+      <workItem from="1645742922127" duration="59000" />
+      <workItem from="1645743046051" duration="358000" />
+      <workItem from="1645743414555" duration="246000" />
+      <workItem from="1645743670925" duration="12000" />
+      <workItem from="1645746257242" duration="750000" />
+      <workItem from="1645747064512" duration="786000" />
+      <workItem from="1645748036878" duration="2235000" />
+      <workItem from="1645750282038" duration="31000" />
+      <workItem from="1645750364391" duration="2277000" />
+      <workItem from="1645752807230" duration="1301000" />
     </task>
     <task id="LOCAL-00001" summary="initialisation">
       <created>1641721964536</created>
@@ -473,7 +486,35 @@
       <option name="project" value="LOCAL" />
       <updated>1645123889519</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="issue-18">
+      <created>1645747135690</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1645747135690</updated>
+    </task>
+    <task id="LOCAL-00038" summary="issue-18">
+      <created>1645752510790</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1645752510790</updated>
+    </task>
+    <task id="LOCAL-00039" summary="issue-18">
+      <created>1645753411757</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1645753411757</updated>
+    </task>
+    <task id="LOCAL-00040" summary="issue-18">
+      <created>1645753585243</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1645753585243</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -489,7 +530,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initialisation" />
@@ -498,6 +538,7 @@
     <MESSAGE value="issue-4-14" />
     <MESSAGE value="issue-8" />
     <MESSAGE value="issue-11" />
-    <option name="LAST_COMMIT_MESSAGE" value="issue-11" />
+    <MESSAGE value="issue-18" />
+    <option name="LAST_COMMIT_MESSAGE" value="issue-18" />
   </component>
 </project>

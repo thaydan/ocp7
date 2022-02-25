@@ -34,8 +34,23 @@ class ClientCustomerController extends AController
      *     response=200,
      *     description="Return the list of your customers",
      *     @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"read:all", "customer:list"}))
+     *         @OA\Property(
+     *             property="elements",
+     *             type="array",
+     *             @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"read:all", "customer:list"}))
+     *         ),
+     *         @OA\Property(
+     *             property="nbPage",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElements",
+     *             type="integer"
+     *         ),
+     *         @OA\Property(
+     *             property="nbElementsPerPage",
+     *             type="integer"
+     *         )
      *     )
      * )
      * @OA\Parameter(
@@ -56,12 +71,12 @@ class ClientCustomerController extends AController
      * @throws JsonInvalidException
      */
     #[Route('', name: 'client_customer_index', methods: ['GET'])]
-    public function index(ClientCustomerRepository $clientCustomerRepository): Response
+    public function index(ClientCustomerRepository $customerRepository): Response
     {
         $pagination = $this->formHandler->handle(PaginationType::class, null, 'query');
 
         return $this->json(
-            $clientCustomerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage'], ['client' => $this->getUser()]),
+            $customerRepository->findAllPaginated($pagination['page'], $pagination['nbElementsPerPage'], ['client' => $this->getUser()]),
             Response::HTTP_OK,
             [],
             [
@@ -121,6 +136,15 @@ class ClientCustomerController extends AController
      *     in="path",
      *     description="Id of the customer",
      *     @OA\Schema(type="integer")
+     * )
+     * @OA\Parameter(
+     *     name="body",
+     *     in="header",
+     *     description="Body",
+     *     @OA\Schema(
+     *          type="array",
+     *        @OA\Items(ref=@Model(type=ClientCustomer::class, groups={"customer:show"}))
+     *      )
      * )
      * @OA\Tag(name="Customers")
      *
