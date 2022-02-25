@@ -9,12 +9,11 @@ use JMS\Serializer\Annotation\Groups;
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * …
  *
  * @Hateoas\Relation(
  *      "self",
  *      href = @Hateoas\Route(
- *          "client_customer_index",
+ *          "client_customer_show",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
  *      )

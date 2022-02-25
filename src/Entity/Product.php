@@ -5,16 +5,14 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
-
 use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
- * …
  *
  * @Hateoas\Relation(
  *      "self",
  *      href = @Hateoas\Route(
- *          "product_index",
+ *          "product_show",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
  *      )
