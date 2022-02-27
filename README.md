@@ -26,9 +26,8 @@ Some examples :
 - Get the list of the available products : /api/product (GET)
 - Get the detail of a product : /api/product/{product_id} (GET)
 
-Don't forget to include the bearer token in the header of your request.
-
 This will return a JSON response.
+Don't forget to include the bearer token in the header of your request.
 
 # Developper installation
 
