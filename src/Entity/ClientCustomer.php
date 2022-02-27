@@ -16,7 +16,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          "client_customer_show",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
- *      )
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"customer:list", "customer:show"})
  * )
  * @Hateoas\Relation(
  *      "modify",
@@ -24,7 +25,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          "client_customer_edit",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
- *      )
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"customer:list", "customer:show"})
  * )
  * @Hateoas\Relation(
  *      "delete",
@@ -32,7 +34,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          "client_customer_delete",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
- *      )
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"customer:list", "customer:show"})
  * )
  */
 #[ORM\Entity(repositoryClass: ClientCustomerRepository::class)]

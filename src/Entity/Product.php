@@ -15,23 +15,8 @@ use Hateoas\Configuration\Annotation as Hateoas;
  *          "product_show",
  *          parameters = { "id" = "expr(object.getId())" },
  *          absolute = true
- *      )
- * )
- * @Hateoas\Relation(
- *      "modify",
- *      href = @Hateoas\Route(
- *          "product_edit",
- *          parameters = { "id" = "expr(object.getId())" },
- *          absolute = true
- *      )
- * )
- * @Hateoas\Relation(
- *      "delete",
- *      href = @Hateoas\Route(
- *          "product_delete",
- *          parameters = { "id" = "expr(object.getId())" },
- *          absolute = true
- *      )
+ *      ),
+ *     exclusion = @Hateoas\Exclusion(groups={"product:list", "product:show"})
  * )
  */
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
