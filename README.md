@@ -13,9 +13,9 @@ To know all about the request entries, the parameters and make tests, go to the 
 ## Get a Bearer Token
 To access the API, you need to be identified. To do this, you must include an access token in each of the requests you make.
 
-To generate a bearer token, send a request with json content to /api/login_check
+To generate a bearer token, send a request with your login details in JSON format to /api/login_check
 
-Example :  
+Example of request body (JSON format):  
 {  
 &nbsp;&nbsp;&nbsp;&nbsp;"username":"your_login",  
 &nbsp;&nbsp;&nbsp;&nbsp;"password":"your_password"  
