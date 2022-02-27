@@ -11,7 +11,7 @@ Here is how to use it.
 To know all about the request entries, the parameters and make tests, go to the documentation by accessing : /api/doc
 
 ## Get a Bearer Token
-Send a GET or POST request with json content to /api/login_check
+Send a request with json content to /api/login_check
 
 Example :  
 {  
@@ -23,10 +23,10 @@ This will return your bearer token.
 
 ## Make a request
 Some examples :
-- Get the list of the available products : /api/product
-- Get the detail of a product : /api/product/{product_id} 
+- Get the list of the available products : /api/product (GET)
+- Get the detail of a product : /api/product/{product_id} (GET)
 
-Don't forget to include the bearer token in the headr of your request.
+Don't forget to include the bearer token in the header of your request.
 
 This will return a JSON response.
 
