@@ -10,7 +10,7 @@ Here is how to use it.
 ## Read the API documentation
 To know all about the request entries, the parameters and make tests, go to the documentation by accessing : /api/doc
 
-## Get a JWT authentication token
+## Get a Bearer Token
 Send a GET or POST request with json content to /api/login_check
 
 Example :  
@@ -19,15 +19,14 @@ Example :
 &nbsp;&nbsp;&nbsp;&nbsp;"password":"your_password"  
 }  
 
-This will return your token.
-
-## Add your token in your requests
-[explain]
+This will return your bearer token.
 
 ## Make a request
 Some examples :
 - Get the list of the available products : /api/product
 - Get the detail of a product : /api/product/{product_id} 
+
+Don't forget to include the bearer token in the headr of your request.
 
 This will return a JSON response.
 
