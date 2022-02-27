@@ -2,7 +2,7 @@
 
 # ocp7
 
-BileMo is a BTB smartphone provider, when you have a client account with us, you can access the list of smartphones we offer through our API. You also have the possibility to manage your customers directly from our API. 
+BileMo is a BTB smartphone provider. When you have a client account with us, you can access the list of smartphones we offer through our API. You also have the possibility to manage your customers directly from our API. 
 Here is how to use it.
 
 # Client usage
