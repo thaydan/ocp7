@@ -11,6 +11,8 @@ Here is how to use it.
 To know all about the request entries, the parameters and make tests, go to the documentation by accessing : /api/doc
 
 ## Get a Bearer Token
+To access the API, you need to identify yourself. To do this, you must include an access token in each of the requests you make. Here is how to do it.
+
 Send a request with json content to /api/login_check
 
 Example :  
