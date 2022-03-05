@@ -13,11 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 #[Route('/api/customer')]
@@ -41,7 +38,7 @@ class ClientCustomerController extends AController
      * @OA\Parameter(
      *     name="page",
      *     in="query",
-     *     description="The page number (optional)",
+     *     description="The page number (optional, min=0)",
      *     @OA\Schema(type="integer")
      * )
      * @OA\Parameter(
