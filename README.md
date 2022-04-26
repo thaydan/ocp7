@@ -40,12 +40,10 @@ Don't forget to include the bearer token in the header of your request.
 5. Update database schema : "php bin/console doctrine:database:update --force"
 6. Load fixtures : "php bin/console doctrine:fixtures:load"
 
-# Fixtures login details
-
 ## Admin account
-email : admin@admin.com
-password : admin
+email : admin@admin.com  
+password : admin  
 
 ## User account
-email : user@user.com
-password : user
+email : user@user.com  
+password : user  
