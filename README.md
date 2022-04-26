@@ -35,10 +35,9 @@ Don't forget to include the bearer token in the header of your request.
 
 1. Copy the repository
 2. Install dependencies with "composer install"
-3. Generate keypair with : "php bin/console lexik:jwt:generate-keypair"
-4. Create database : "php bin/console doctrine:database:create"
-5. Update database schema : "php bin/console doctrine:database:update --force"
-6. Load fixtures : "php bin/console doctrine:fixtures:load"
+3. Create database : "php bin/console doctrine:database:create"
+4. Update database schema : "php bin/console doctrine:database:update --force"
+5. Load fixtures : "php bin/console doctrine:fixtures:load"
 
 **Admin account** : email : admin@admin.com / password : admin  
 **User account** : email : user@user.com / password : user  
