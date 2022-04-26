@@ -41,5 +41,4 @@ Don't forget to include the bearer token in the header of your request.
 6. Load fixtures : "php bin/console doctrine:fixtures:load"
 
 **Admin account** : email : admin@admin.com / password : admin  
-
 **User account** : email : user@user.com / password : user  
